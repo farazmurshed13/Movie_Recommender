@@ -1,1 +1,1 @@
-web: gunicorn --bind 0.0.0.0:$PORT prompter:app
+web: gunicorn prompter:app
