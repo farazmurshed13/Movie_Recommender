@@ -5,7 +5,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 app = Flask(__name__)
 
 # handle incoming sms
-@app.route("/sms", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def handle_sms():
     # Get the message the user sent to Twilio number
     #body = request.values.get('Body', None)
