@@ -8,7 +8,7 @@ app = Flask(__name__)
 @app.route("/sms", methods=['GET', 'POST'])
 def handle_sms():
     # Get the message the user sent to Twilio number
-    body = request.values.get('Body', None)
+    #body = request.values.get('Body', None)
 
     # configure response message
     res = "hello"
