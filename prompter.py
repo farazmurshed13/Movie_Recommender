@@ -10,12 +10,9 @@ def handle_sms():
     # Get the message the user sent to Twilio number
     #body = request.values.get('Body', None)
 
-    # configure response message
-    res = "hello"
-
     # TwiML response
     resp = MessagingResponse()
-    resp.message(res)
+    resp.message("hello")
 
     return str(resp)
 
