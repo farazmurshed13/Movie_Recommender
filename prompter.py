@@ -20,8 +20,6 @@ def handle_sms():
     return str(resp)
 
 
-
-
 # run flask app
 if __name__ == '__main__':
     app.run()
