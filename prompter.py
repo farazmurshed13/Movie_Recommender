@@ -130,7 +130,7 @@ def handle_sms():
                     from_='+12029184410',
                     to=number
                 )
-                print(mess)
+                print(mess.sid)
 
         else:
             msg = "done - waiting for other users!"
