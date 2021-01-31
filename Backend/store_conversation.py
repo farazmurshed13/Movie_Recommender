@@ -149,13 +149,3 @@ def remove_code(c):
     db = client['mydatabase']
     codes = db['partyCodes']
     codes.delete_one({"code": c})
-
-# get users_list
-def get_users(c):
-    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(
-        "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
-    db = client['mydatabase']
-    codes = db['partyCodes']
-    us = codes.find({"code": c}, {"users_list": 1, "_id": 0})
-    for u in us:
-        return us["users_list"]
