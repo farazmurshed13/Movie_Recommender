@@ -132,7 +132,7 @@ def get_tot_resp(c):
     for j in nu:
         n_nu = j["num_users"]
     n_nu_asInt = int(n_nu)
-    return [[q1, q2, q3, q4, n_nu_asInt, min_rat, min_dat, max_dat]]
+    return [q1, q2, q3, q4, n_nu_asInt, min_rat, min_dat, max_dat]
 
 # store list of movies as strings
 def movie_msg(mlist):
