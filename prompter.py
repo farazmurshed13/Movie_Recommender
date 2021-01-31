@@ -22,6 +22,7 @@ def data():
     if request.method == 'POST':
         form_data = request.form
         form_dict = {}
+        form_dict['numwatchers'] = form_data['numwatchers']
         if(form_data['mindate'] == ''):
             form_dict['mindate'] = '0'
         else:
