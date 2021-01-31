@@ -1,24 +1,44 @@
 import pymongo
-import numpy as np
 import random
 import urllib
-from pprint import pprint
-from heapq import nsmallest 
+from heapq import nsmallest
 from random import randrange
 from decouple import config
 
 MDB_PASS = config('PASS')
 
-genreGraph = {}
-probDict = {}
 
 # insert genre into the genre graph
-def insert(genre, thrill, brainpower, realism, futurism):
+def insert(genreGraph, genre, thrill, brainpower, realism, futurism):
     genreGraph[genre] = [thrill,brainpower,realism,futurism]
 
+def insertAllGenre():
+    genreGraph = {}
+    insert(genreGraph, "Biography", 1, 4, 5, 2)
+    insert(genreGraph, "Crime", 5, 4, 4, 3)
+    insert(genreGraph, "Drama", 5, 3, 4, 3)
+    insert(genreGraph,"History", 1, 4, 5, 1)
+    insert(genreGraph,"Adventure", 4, 3, 2, 4)
+    insert(genreGraph,"Fantasy", 4, 3, 1, 1)
+    insert(genreGraph,"War", 5, 3, 4, 2)
+    insert(genreGraph,"Mystery", 4, 5, 3, 3)
+    insert(genreGraph,"Horror", 5, 2, 1, 3)
+    insert(genreGraph,"Western", 3, 2, 4, 2)
+    insert(genreGraph,"Comedy", 3, 1, 4, 3)
+    insert(genreGraph,"Family", 3, 1, 4, 3)
+    insert(genreGraph,"Action", 5, 2, 2, 4)
+    insert(genreGraph,"Sci-fi", 4, 5, 1, 5)
+    insert(genreGraph,"Thriller", 5, 4, 3, 3)
+    insert(genreGraph,"Sport", 3, 1, 5, 3)
+    insert(genreGraph,"Animation", 3, 3, 1, 4)
+    insert(genreGraph,"Musical", 3, 1, 3, 3)
+    insert(genreGraph,"Film-Noir", 4, 4, 4, 2)
+    insert(genreGraph,"Romance", 2, 1, 4, 3)
+    return genreGraph
 # calculate the k nearest genres
 def k_nearest(thrill, brainpower, realism, futurism):
     tempDict = {}
+    genreGraph = insertAllGenre()
     for genre in genreGraph:
         genreThrill = genreGraph[genre][0]
         genreBP = genreGraph[genre][1]
@@ -30,6 +50,7 @@ def k_nearest(thrill, brainpower, realism, futurism):
 
 # calculate the prob of each genre
 def setProbOfEachGenre(diffDict):
+    probDict = {}
     res = nsmallest(5, diffDict, key = diffDict.get)
     topFiveSum = 0
     topFiveInverseSum = 0
@@ -45,11 +66,12 @@ def setProbOfEachGenre(diffDict):
             probDict[genre] = probability
         else:
             probDict[genre] = 0
+    return probDict
     #pprint(probDict)
 
 
 # pick a movie
-def pickMovie(recMovieList, minRating, minYear, maxYear):
+def pickMovie(probDict, recMovieList, minRating, minYear, maxYear):
     genreList = random.choices(list(probDict.keys()), weights=probDict.values(), k=3)
     #print(genreList)
     client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
@@ -58,56 +80,38 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
     mydoc = movies.find({ "$and": [{"genre":  {'$regex': '.*' + genreList[0] + '*.'}},{"genre":  {'$regex': '.*' + genreList[1] + '*.'}},
             {"genre":  {'$regex': '.*' + genreList[2] + '*.'}},{"language": "English"},{"avg_vote": {"$gt": int(minRating)}}, 
             {"year": {"$gt": int(minYear), "$lt":int(maxYear)}}]},{"_id":False})
-    if mydoc.count() == 0:
-        return None   
-    numDoc = mydoc.count()
+    numDoc = movies.count_documents({ "$and": [{"genre":  {'$regex': '.*' + genreList[0] + '*.'}},{"genre":  {'$regex': '.*' + genreList[1] + '*.'}},
+            {"genre":  {'$regex': '.*' + genreList[2] + '*.'}},{"language": "English"},{"avg_vote": {"$gt": int(minRating)}}, 
+            {"year": {"$gt": int(minYear), "$lt":int(maxYear)}}]})
+    if numDoc == 0:
+        return None  
     #randomize index because mongodb has ordering
-    randIndex = randrange(1,numDoc)
+    randIndex = randrange(0,numDoc)
     index = 0
     for x in mydoc:
-        index +=1
         if index == randIndex:
             if x in recMovieList:
                 continue
             return x['original_title']
 
+        index +=1
+    return None
+
+
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
     movieList = []
     diffDict = k_nearest(thrill, brainpower, realism, futurism)
-    setProbOfEachGenre(diffDict)
+    probDict = setProbOfEachGenre(diffDict)
     it = 0
     while it < 1000 and len(movieList) < 5:
-        recMovie = pickMovie(movieList,minRating,minYear,maxYear)
+        recMovie = pickMovie(probDict, movieList,minRating,minYear,maxYear)
         if recMovie not in movieList and recMovie is not None:
             movieList.append(recMovie)
         else:
             it+=1
-    if it == 1000:
-        print("you're group is unable to be satisfied, you might have to pick a different activity tonight")
-    print(movieList)
     return movieList
 
-insert("Biography", 1, 4, 5, 2)
-insert("Crime", 5, 4, 4, 3)
-insert("Drama", 5, 3, 4, 3)
-insert("History", 1, 4, 5, 1)
-insert("Adventure", 4, 3, 2, 4)
-insert("Fantasy", 4, 3, 1, 1)
-insert("War", 5, 3, 4, 2)
-insert("Mystery", 4, 5, 3, 3)
-insert("Horror", 5, 2, 1, 3)
-insert("Western", 3, 2, 4, 2)
-insert("Comedy", 3, 1, 4, 3)
-insert("Family", 3, 1, 4, 3)
-insert("Action", 5, 2, 2, 4)
-insert("Sci-fi", 4, 5, 1, 5)
-insert("Thriller", 5, 4, 3, 3)
-insert("Sport", 3, 1, 5, 3)
-insert("Animation", 3, 3, 1, 4)
-insert("Musical", 3, 1, 3, 3)
-insert("Film-Noir", 4, 4, 4, 2)
-insert("Romance", 2, 1, 4, 3)
 #generateMovList(1,4,5,3,"1","1970","2000")
 #generateMovList(5,4,2,4,"1","1970","2000")
 
