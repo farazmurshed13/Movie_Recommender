@@ -1,6 +1,7 @@
 import pymongo
 import numpy as np
 import random
+import urllib
 from pprint import pprint
 from heapq import nsmallest 
 from random import randrange
@@ -10,7 +11,6 @@ MDB_PASS = config('PASS')
 
 genreGraph = {}
 probDict = {}
-movieList = []
 
 # insert genre into the genre graph
 def insert(genre, thrill, brainpower, realism, futurism):
@@ -73,6 +73,7 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
 
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
+    movieList = []
     diffDict = k_nearest(thrill, brainpower, realism, futurism)
     setProbOfEachGenre(diffDict)
     it = 0
