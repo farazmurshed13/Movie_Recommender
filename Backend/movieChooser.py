@@ -108,6 +108,6 @@ insert("Animation", 3, 3, 1, 4)
 insert("Musical", 3, 1, 3, 3)
 insert("Film-Noir", 4, 4, 4, 2)
 insert("Romance", 2, 1, 4, 3)
-#generateMovList(1,4,5,3,"1","1970","2000")
+print(generateMovList(1,4,5,3,"1","1970","2000"))
 #generateMovList(5,4,2,4,"1","1970","2000")
 
