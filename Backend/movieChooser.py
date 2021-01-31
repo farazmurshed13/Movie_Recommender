@@ -71,7 +71,8 @@ def setProbOfEachGenre(diffDict):
 
 
 # pick a movie
-def pickMovie(probDict, recMovieList, minRating, minYear, maxYear):
+
+def pickMovie(minRating, minYear, maxYear):
     genreList = random.choices(list(probDict.keys()), weights=probDict.values(), k=3)
     #print(genreList)
     client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
@@ -90,8 +91,6 @@ def pickMovie(probDict, recMovieList, minRating, minYear, maxYear):
     index = 0
     for x in mydoc:
         if index == randIndex:
-            if x in recMovieList:
-                continue
             return x['original_title']
 
         index +=1
@@ -100,17 +99,21 @@ def pickMovie(probDict, recMovieList, minRating, minYear, maxYear):
 
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
-    movieList = []
+
+    # perform k_nearest and prob distrib
     diffDict = k_nearest(thrill, brainpower, realism, futurism)
-    probDict = setProbOfEachGenre(diffDict)
+    setProbOfEachGenre(diffDict)
+
     it = 0
-    while it < 1000 and len(movieList) < 5:
-        recMovie = pickMovie(probDict, movieList,minRating,minYear,maxYear)
-        if recMovie not in movieList and recMovie is not None:
-            movieList.append(recMovie)
-        else:
-            it+=1
-    return movieList
+    while it < 1000 :
+        recMovie = pickMovie(minRating,minYear,maxYear)
+        if recMovie is None:
+            it +=1
+            continue
+        return recMovie
+
+    return recMovie
+
 
 #generateMovList(1,4,5,3,"1","1970","2000")
 #generateMovList(5,4,2,4,"1","1970","2000")
