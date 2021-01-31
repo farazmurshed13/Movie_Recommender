@@ -125,11 +125,12 @@ def handle_sms():
             client = Client(account_sid, auth_token)
             numbers_to_message = ['+14084775226']
             for number in numbers_to_message:
-                client.messages.create(
+                mess = client.messages.create(
                     body='Hello from my Twilio number!',
                     from_='+12029184410',
                     to=number
                 )
+                print(mess)
 
         else:
             msg = "done - waiting for other users!"
