@@ -29,7 +29,7 @@ def data():
 def handle_sms():
     # store incoming message
     incoming = request.values.get('Body', None)
-
+    sc.generate_code()
     # count messages in session
     counter = session.get('counter', 0)
 
