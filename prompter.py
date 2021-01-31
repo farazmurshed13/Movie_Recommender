@@ -52,36 +52,46 @@ def handle_sms():
     incoming = request.values.get('Body', None)
     inc = int(incoming)
 
+    # store caller
+    from_number = request.values.get('From')
+
     # count messages in session
     counter = session.get('counter', 0)
 
     # determine which question to ask
-    # store party code and ask q1
+
+    # store user, party code, and ask q1
     if counter == 0:
         if sc.verify_party(inc):
             msg = "Respond to each question with 1 to 5!\nWhat would you rather eat for your next meal?\n1. Cereal \U0001F963\n2. Omelette \U0001F373\n3. Spaghetti \U0001F35D\n4. Sushi \U0001F363\n5. Ghost pepper wings \U0001F357"
             counter += 1
+            sc.add_member(from_number, inc)
         else:
             msg = "This party code does not exist."
             counter = 0
+
     # store r1 and ask q2
     elif counter == 1:
-        sc.record_response("1", inc, 5749)
+        party_code = sc.get_code(from_number)
+        sc.record_response("1", inc, party_code)
         msg = "On a scale of 1 to 5, is it currently big brain time? \U0001F9E0\n1 - Last 2 brain cells\n|\n|\n5 - 4D Chess"
         counter += 1
     # store r2 and ask q3
     elif counter == 2:
-        sc.record_response("2", inc, 5749)
+        party_code = sc.get_code(from_number)
+        sc.record_response("2", inc, party_code)
         msg = "What kind of pet would you most want?\n1. Fish \U0001F41F\n2. Turtle \U0001F422\n3. Dog \U0001F436\n4. Tiger \U0001F405\n5. Dragon \U0001F432"
         counter += 1
     # store r3 and ask q4
     elif counter == 3:
-        sc.record_response("3", inc, 5749)
+        party_code = sc.get_code(from_number)
+        sc.record_response("3", inc, party_code)
         msg = "What's the current vibe - more Throwback Thursday \U0001F4FC or Futuristic Friday \U0001F916?\n1 - TBT \U0001F519\n|\n|\n5 - FF \U0001F51C"
         counter += 1
     # store r4
     else:
-        sc.record_response("4", inc, 5749)
+        party_code = sc.get_code(from_number)
+        sc.record_response("4", inc, party_code)
         msg = "done!"
         counter = 0
 

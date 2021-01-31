@@ -19,10 +19,10 @@ def generate_code():
                 "2" : 0,
                 "3" : 0,
                 "4": 0,
+                "users_list" : [],
                 "users_done": 0
             }
             codes.insert_one(new_code)
-
             break
     return c
 
@@ -43,5 +43,26 @@ def record_response(q, resp, c):
         "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
-
     codes.update_one( {"code" : c}, { "$inc" : {q : resp}} )
+
+# add a member to party code
+def add_member(member, c):
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(
+        "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    db = client['mydatabase']
+    codes = db['partyCodes']
+    codes.update_one({"code": c}, {"$push": {"users_list" : member}})
+
+# get code for member
+def get_code(member):
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(
+        "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    db = client['mydatabase']
+    codes = db['partyCodes']
+    found = codes.find({"users_list" : member }, {"code" : 1, "_id" : 0})
+    for i in found:
+        return i["code"]
+
+
+add_member("+1929", 5749)
+print(get_code("+1921"))
