@@ -76,12 +76,11 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
 
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
-    return genreGraph
     movieList = []
 
     # perform k_nearest
     diffDict = k_nearest(thrill, brainpower, realism, futurism)
-
+    return diffDict
 
     setProbOfEachGenre(diffDict)
 
