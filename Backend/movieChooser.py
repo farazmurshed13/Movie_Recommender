@@ -1,12 +1,16 @@
 import pymongo
 import numpy as np
 import random
+import urllib
 from pprint import pprint
 from heapq import nsmallest 
 from random import randrange
+from decouple import config
+
+MDB_PASS = config('PASS')
+
 genreGraph = {}
 probDict = {}
-movieList = []
 
 # insert genre into the genre graph
 def insert(genre, thrill, brainpower, realism, futurism):
@@ -48,7 +52,7 @@ def setProbOfEachGenre(diffDict):
 def pickMovie(recMovieList, minRating, minYear, maxYear):
     genreList = random.choices(list(probDict.keys()), weights=probDict.values(), k=3)
     #print(genreList)
-    client = pymongo.MongoClient("mongodb+srv://articbear1999:Jacoblin1!@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
     db = client['mydatabase']
     movies = db['movies']
     mydoc = movies.find({ "$and": [{"genre":  {'$regex': '.*' + genreList[0] + '*.'}},{"genre":  {'$regex': '.*' + genreList[1] + '*.'}},
@@ -69,6 +73,7 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
 
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
+    movieList = []
     diffDict = k_nearest(thrill, brainpower, realism, futurism)
     setProbOfEachGenre(diffDict)
     it = 0
