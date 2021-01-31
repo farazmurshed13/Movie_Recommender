@@ -60,6 +60,15 @@ def handle_sms():
 
     # count messages in session
     counter = session.get('counter', 0)
+    counter = 0
+    # update counter
+    session['counter'] = counter
+
+    # reply to user
+    outgoing = MessagingResponse()
+    outgoing.message("reset")
+
+    return str(outgoing)
 
     # determine which question to ask
 
