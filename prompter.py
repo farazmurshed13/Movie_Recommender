@@ -37,7 +37,7 @@ def data():
         else:
             form_dict['minrating'] = form_data['minrating']
 
-        code = 1451
+        code = sc.generate_code()
         return render_template('data.html', code=code)
 
 @app.route("/about")
@@ -58,27 +58,28 @@ def handle_sms():
         party_code = int(incoming)
         if sc.verify_party(party_code):
             msg = "question 1"
+            counter += 1
         else:
             msg = "This party code does not exist."
             counter = 0
     # store r1 and ask q2
     elif counter == 1:
         msg = "question 2"
+        counter += 1
     # store r2 and ask q3
     elif counter == 2:
         msg = "question 3"
+        counter += 1
     # store r3 and ask q4
     elif counter == 3:
         msg = "question 4"
+        counter += 1
     # store r4
     else:
         msg = "done!"
-
-    # increment or reset counter
-    if counter > 3:
         counter = 0
-    else:
-        counter += 1
+
+    # update counter
     session['counter'] = counter
 
     # reply to user
