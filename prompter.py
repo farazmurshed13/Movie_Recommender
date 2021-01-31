@@ -1,6 +1,7 @@
 from flask import Flask, request, session, render_template
 from twilio.twiml.messaging_response import MessagingResponse
 from Backend import store_conversation as sc
+from Backend import movieChooser as mc
 
 SECRET_KEY = "a secret key"
 app = Flask(__name__)
@@ -39,7 +40,7 @@ def data():
             form_dict['minrating'] = form_data['minrating']
 
         code = sc.generate_code()
-        sc.host_submit(form_dict)
+        sc.host_submit(form_dict, code)
 
         return render_template('data.html', code=code)
 
@@ -90,12 +91,24 @@ def handle_sms():
         sc.record_response("3", inc, party_code)
         msg = "What's the current vibe - more Throwback Thursday \U0001F4FC or Futuristic Friday \U0001F916?\n1 - TBT \U0001F519\n|\n|\n5 - FF \U0001F51C"
         counter += 1
-    # store r4
+    # store r4; handle movie selection if last user to finish
     else:
         party_code = sc.get_code(from_number)
         sc.record_response("4", inc, party_code)
 
-        msg = "done!"
+        # check if everyone done
+        if sc.done(party_code):
+            info = sc.get_tot_resp(party_code)
+            # use averages of question responses as input for knn algorithm
+            t = info[0] / info[4]
+            b = info[1] / info[4]
+            r = info[2] / info[4]
+            f = info[3] / info[4]
+            movies_list = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
+            msg = sc.movie_msg(movies_list)
+        else:
+            msg = "done - waiting for other users!"
+
         counter = 0
 
     # update counter

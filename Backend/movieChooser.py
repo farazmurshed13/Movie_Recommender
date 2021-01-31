@@ -1,9 +1,7 @@
 import pymongo
-import numpy as np
 import random
 import urllib
-from pprint import pprint
-from heapq import nsmallest 
+from heapq import nsmallest
 from random import randrange
 from decouple import config
 
