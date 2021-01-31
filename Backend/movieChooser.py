@@ -80,9 +80,10 @@ def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, m
 
     # perform k_nearest
     diffDict = k_nearest(thrill, brainpower, realism, futurism)
-    return diffDict
+
 
     setProbOfEachGenre(diffDict)
+    return probDict
 
     it = 0
     while it < 1000 and len(movieList) < 5:
