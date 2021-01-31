@@ -24,18 +24,14 @@ def generate_code():
             }
             codes.insert_one(new_code)
             break
-    client.close()
 
 #verify party code
 def verify_party(pc):
-    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + "@cluster0.zmj8z.mongodb.net")
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
 
-
     if codes.count_documents({"code": pc}, limit=1) == 1:
-        client.close()
         return True
     else:
-        client.close()
         return False
