@@ -116,18 +116,18 @@ def get_tot_resp(c):
         q3 = k["3"]
     loc4 = codes.find({"code": c}, {"4": 1, "_id": 0})
     for g in loc4:
-        q4 = j["4"]
+        q4 = g["4"]
 
     # get other necessary data
-    loc5 = codes.find({"code": c}, {"1": 1, "_id": 0})
+    loc5 = codes.find({"code": c}, {"min_rating": 1, "_id": 0})
     for i in loc5:
-        min_rat = i["1"]
-    loc6 = codes.find({"code": c}, {"2": 1, "_id": 0})
+        min_rat = i["min_rating"]
+    loc6 = codes.find({"code": c}, {"min_date": 1, "_id": 0})
     for j in loc6:
-        min_dat = j["2"]
-    loc7 = codes.find({"code": c}, {"3": 1, "_id": 0})
+        min_dat = j["min_date"]
+    loc7 = codes.find({"code": c}, {"max_date": 1, "_id": 0})
     for k in loc7:
-        max_dat = k["3"]
+        max_dat = k["max_date"]
     nu = codes.find({"code": c}, {"num_users": 1, "_id": 0})
     for j in nu:
         n_nu = j["num_users"]
