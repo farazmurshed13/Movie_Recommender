@@ -31,5 +31,3 @@ def verify_party(pc):
         return True
     else:
         return False
-
-generate_code()
