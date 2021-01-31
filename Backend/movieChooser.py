@@ -6,7 +6,6 @@ from heapq import nsmallest
 from random import randrange
 genreGraph = {}
 probDict = {}
-movieList = []
 
 # insert genre into the genre graph
 def insert(genre, thrill, brainpower, realism, futurism):
@@ -69,6 +68,7 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
 
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
+    movieList = []
     diffDict = k_nearest(thrill, brainpower, realism, futurism)
     setProbOfEachGenre(diffDict)
     it = 0
@@ -104,5 +104,5 @@ insert("Musical", 3, 1, 3, 3)
 insert("Film-Noir", 4, 4, 4, 2)
 insert("Romance", 2, 1, 4, 3)
 #generateMovList(1,4,5,3,"1","1970","2000")
-#generateMovList(5,4,2,4,"1","1970","2000")
+generateMovList(5,4,2,4,"1","1970","2000")
 
