@@ -21,6 +21,9 @@ def handle_sms():
 
     return str(resp)
 
+@app.route("/")
+def site():
+    return "hello world"
 
 # run flask app
 if __name__ == '__main__':
