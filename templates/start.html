@@ -2,8 +2,11 @@
 
 {% block content %}
 <div class="grid">
-    <div class="row mt-5 mb-5 d-flex justify-content-center">
+    <div class="row mt-5 d-flex justify-content-center">
         <h2>First, some details...</h2>
+    </div>
+    <div class="row mb-3 d-flex justify-content-center">
+        <p>(If no preference, please leave blank.)</p>
     </div>
     <div class="row">
         <form action='data' method="POST">
@@ -11,9 +14,9 @@
             <p>(Between 1894-2021)</p>
             <div class='form-group'>
                 <label for="mindate">Minimum Year</label>
-                <input type="number" class="form-control" id="mindate" name="mindate" style="width: 200px;"/></p>
+                <input type="number" class="form-control" id="mindate" name="mindate" min="1894" max="2021" style="width: 200px;"/></p>
                 <label for="maxdate">Maximum Year</label>
-                <input type="number" class="form-control" id="maxdate" name="maxdate" style="width: 200px;"/></p>
+                <input type="number" class="form-control" id="maxdate" name="maxdate" min="1984" max="2021" style="width: 200px;"/></p>
             </div>
             <h5>Any preferences for minimum IMDb rating?</h5>
             <p>(Between 0-10)</p>
@@ -22,7 +25,7 @@
                 <input type="number" class="form-control" id="minrating" name="minrating" min="0" max="10" style="width: 200px;"/></p>
             </div>
     </div>
-    <div class="row mt-3 d-flex justify-content-center">
+    <div class="row mt-3 mb-5 d-flex justify-content-center">
         <input type="submit" value="Get Your Code!" class="btn btn-lg btn-success" >
     </div>
     </form>   
