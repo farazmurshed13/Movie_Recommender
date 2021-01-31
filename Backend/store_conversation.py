@@ -31,7 +31,10 @@ def verify_party(pc):
     db = client['mydatabase']
     codes = db['partyCodes']
 
-    if codes.count_documents({"code": pc}, limit=1) == 1:
-        return True
-    else:
+    f = codes.find({"code" : pc})
+
+    # True if code is unused
+    if f.count() > 0:
         return False
+    else:
+        return True
