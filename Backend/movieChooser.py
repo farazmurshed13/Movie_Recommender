@@ -7,7 +7,7 @@ from random import randrange
 genreGraph = {}
 diffDict = {}
 probDict = {}
-
+movieList = []
 #insert genre into the genre graph
 def insert(genre, thrill, brainpower, realism, futurism):
     genreGraph[genre] = [thrill,brainpower,realism,futurism]
@@ -70,7 +70,6 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
 # generate a list of movies to watch
 def generateMovList(minRating, minYear, maxYear):
     it = 0
-    movieList = []
     while it < 1000 and len(movieList) < 5:
         recMovie = pickMovie(movieList,minRating,minYear,maxYear)
         if recMovie not in movieList and recMovie is not None:
