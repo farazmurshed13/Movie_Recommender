@@ -2,6 +2,8 @@ from flask import Flask, request, session, render_template
 from twilio.twiml.messaging_response import MessagingResponse
 from Backend import store_conversation as sc
 from Backend import movieChooser as mc
+import os
+from twilio.rest import Client
 
 SECRET_KEY = "a secret key"
 app = Flask(__name__)
@@ -99,7 +101,7 @@ def handle_sms():
         # check if everyone done
         isDone = sc.done(party_code)
         if isDone:
-            #msg = ("Here are your movie recommendations: " + "\n")
+
             info = sc.get_tot_resp(party_code)
             # use averages of question responses as input for knn algorithm
             t = info[0] / info[4]
@@ -116,6 +118,19 @@ def handle_sms():
 
             sc.remove_code(party_code)
             msg = ("Here are your movie recommendations: \n" + movie1 + "\n" + movie2 + "\n" + movie3 + "\n" + movie4 + "\n" + movie5 )
+
+            # send to everyone in party
+            account_sid = os.environ['ACda842cda6cd1313aa27b1532af61ee93']
+            auth_token = os.environ['562007e3d32b36978026f802bc36bf64']
+            client = Client(account_sid, auth_token)
+            numbers_to_message = ['+14084775226']
+            for number in numbers_to_message:
+                client.messages.create(
+                    body='Hello from my Twilio number!',
+                    from_='+12029184410',
+                    to=number
+                )
+
         else:
             msg = "done - waiting for other users!"
 
