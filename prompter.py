@@ -38,6 +38,7 @@ def data():
             form_dict['minrating'] = form_data['minrating']
 
         code = sc.generate_code()
+
         return render_template('data.html', code=code)
 
 @app.route("/about")

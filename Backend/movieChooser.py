@@ -12,8 +12,8 @@ movieList = []
 def insert(genre, thrill, brainpower, realism, futurism):
     genreGraph[genre] = [thrill,brainpower,realism,futurism]
 
-# calculate the k closest genres
-def kClosest(thrill, brainpower, realism, futurism):
+# calculate the k nearest genres
+def k_nearest(thrill, brainpower, realism, futurism):
     tempDict = {}
     for genre in genreGraph:
         genreThrill = genreGraph[genre][0]
@@ -103,8 +103,8 @@ insert("Animation", 3, 3, 1, 4)
 insert("Musical", 3, 1, 3, 3)
 insert("Film-Noir", 4, 4, 4, 2)
 insert("Romance", 2, 1, 4, 3)
-#diffDict = kClosest(1,4,5,3)
-diffDict = kClosest(5,4,2,4)
+diffDict = k_nearest(1,4,5,3)
+diffDict = k_nearest(5,4,2,4)
 setProbOfEachGenre()
-generateMovList("1","1970","2000")
+#generateMovList("1","1970","2000")
 
