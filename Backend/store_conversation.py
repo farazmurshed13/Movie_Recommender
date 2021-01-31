@@ -128,5 +128,15 @@ def get_tot_resp(c):
     loc7 = codes.find({"code": c}, {"3": 1, "_id": 0})
     for k in loc7:
         max_dat = k["3"]
+    nu = codes.find({"code": c}, {"num_users": 1, "_id": 0})
+    for j in nu:
+        n_nu = j["num_users"]
 
-    return [q1, q2, q3, q4, min_rat, min_dat, max_dat]
+    return [[q1, q2, q3, q4, n_nu, min_rat, min_dat, max_dat]]
+
+# store list of movies as strings
+def movie_msg(mlist):
+    msg = "Here are your recommended movies!\n\n"
+    for i in range(len(mlist)):
+        msg += (str(i+1) + ". " + mlist[i] + "\n")
+    return msg
