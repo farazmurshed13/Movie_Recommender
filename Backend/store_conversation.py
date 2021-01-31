@@ -28,8 +28,8 @@ def generate_code():
 #verify party code
 def verify_party(pc):
     client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
-    db = client['mydatabase']
-    codes = db['partyCodes']
+    #db = client['mydatabase']
+    codes = client['partyCodes']
 
     if pc == 829:
         return True
