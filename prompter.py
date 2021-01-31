@@ -108,29 +108,23 @@ def handle_sms():
             f = info[3] / info[4]
 
             # get movies
-            movies_list = ()
             movie1 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
             msg += (movie1 + "\n")
-            movies_list.add(movie1)
 
             movie2 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie2 not in movies_list:
-                movies_list.add(movie2)
+            if movie2 not in msg:
                 msg += (movie2 + "\n")
 
             movie3 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie3 not in movies_list:
-                movies_list.add(movie3)
+            if movie3 not in msg:
                 msg += (movie3 + "\n")
 
             movie4 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie4 not in movies_list:
-                movies_list.add(movie4)
+            if movie4 not in msg:
                 msg += (movie4 + "\n")
 
             movie5 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie5 not in movies_list:
-                movies_list.add(movie5)
+            if movie5 not in msg:
                 msg += (movie5 + "\n")
             mc.remove_code(party_code)
         else:
