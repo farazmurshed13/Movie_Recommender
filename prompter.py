@@ -132,7 +132,7 @@ def handle_sms():
             if movie5 not in movies_list:
                 movies_list.append(movie5)
                 msg += (movie5 + "\n")
-            mc.remove_code(c)
+            mc.remove_code(party_code)
         else:
             msg = "done - waiting for other users!"
 
