@@ -31,7 +31,12 @@ def verify_party(pc):
         "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
-    if codes.count_documents({"code": c}, limit=1) == 1:
+    if codes.count_documents({"code": pc}, limit=1) == 1:
+        print("T")
         return True
     else:
+        print("F")
         return False
+
+verify_party(829)
+verify_party(830)
