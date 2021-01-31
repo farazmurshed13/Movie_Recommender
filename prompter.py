@@ -12,7 +12,7 @@ def handle_sms():
     # count messages in session
     counter = session.get('counter', 0)
     counter += 1
-    if counter == 2:
+    if counter >= 2:
         session['counter'] = 0
     else:
         session['counter'] = counter
