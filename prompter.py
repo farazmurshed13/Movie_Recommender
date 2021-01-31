@@ -28,7 +28,6 @@ def data():
 @app.route("/sms", methods=['GET', 'POST'])
 def handle_sms():
     # store incoming message
-    # from_number = request.values.get('From')
     incoming = request.values.get('Body', None)
 
     # count messages in session
@@ -37,12 +36,12 @@ def handle_sms():
     # determine which question to ask
     # store party code and ask q1
     if counter == 0:
-        party_code = incoming
-        #if sc.verify_party(party_code):
-        #    msg = "question 1"
-        #else:
-        msg = "This party code does not exist."
-
+        party_code = int(incoming)
+        if sc.verify_party(party_code):
+            msg = "question 1"
+        else:
+            msg = "This party code does not exist."
+            counter = 0
     # store r1 and ask q2
     elif counter == 1:
         msg = "question 2"
