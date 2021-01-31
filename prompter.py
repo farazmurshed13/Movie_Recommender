@@ -20,7 +20,8 @@ def data():
         return f"The URL /data is accessed directly. Try going to '/start' to submit form"
     if request.method == 'POST':
         form_data = request.form
-        return render_template('data.html', form = form_data)
+        code = 1456
+        return render_template('data.html', code=code)
 
 # handle incoming sms
 @app.route("/sms", methods=['GET', 'POST'])
