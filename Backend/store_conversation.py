@@ -148,4 +148,4 @@ def remove_code(c):
         "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
-    codes.deleteOne({"code": c})
+    codes.delete_one({"code": c})

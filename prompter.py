@@ -128,6 +128,7 @@ def handle_sms():
     outgoing = MessagingResponse()
     outgoing.message(msg)
 
+
     return str(outgoing)
 
 
