@@ -64,7 +64,7 @@ def handle_sms():
             counter = 0
     # store r1 and ask q2
     elif counter == 1:
-        msg = "On a scale of 1 to 5, is it currently big brain time? \U0001F9E0\n1 = Last 2 brain cells\n5 = 4D Chess"
+        msg = "On a scale of 1 to 5, is it currently big brain time? \U0001F9E0\n1 - Last 2 brain cells\n|\n|\n5 - 4D Chess"
         counter += 1
     # store r2 and ask q3
     elif counter == 2:
@@ -72,7 +72,7 @@ def handle_sms():
         counter += 1
     # store r3 and ask q4
     elif counter == 3:
-        msg = "What's the current vibe - more Throwback Thursday \U0001F4FC or Futuristic Friday \U0001F916?\n1 = TBT \U0001F519\n5 = FF \U0001F51C"
+        msg = "What's the current vibe - more Throwback Thursday \U0001F4FC or Futuristic Friday \U0001F916?\n1 - TBT \U0001F519\n|\n|\n5 - FF \U0001F51C"
         counter += 1
     # store r4
     else:
