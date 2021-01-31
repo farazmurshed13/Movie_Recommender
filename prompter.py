@@ -1,44 +1,30 @@
-from flask import Flask, request
-from twilio.twiml.messaging_response import MessagingResponse
+from flask import Flask, request, session
+from twilio.twiml.messaging_response import Message, MessagingResponse
 
 
+SECRET_KEY = "a secret key"
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 # handle incoming sms
 @app.route("/sms", methods=['GET', 'POST'])
 def handle_sms():
+    # count messages in session
+    counter = session.get('counter', 0)
+    counter += 1
+    session['counter'] = counter
+    from_number = request.values.get('From')
+    incoming = request.values.get('Body', None)
+
     # Get the message the user sent to Twilio number
-    code = request.values.get('Body', None)
+    message = '{} was messaged by {}; {} total msg.' \
+        .format(incoming, from_number, counter)
 
+    outgoing = MessagingResponse()
+    outgoing.message(message)
 
-    # TwiML comms
-    ask()
-    q2()
-    q3()
+    return str(outgoing)
 
-    q3r = request.values.get('Body', None)
-    resp = MessagingResponse()
-    resp.message("done")
-
-    return(str(resp))
-
-
-def ask():
-    resp = MessagingResponse()
-    resp.message("q1")
-    return (str(resp))
-
-def q2():
-    q1r = request.values.get('Body', None)
-    resp = MessagingResponse()
-    resp.message("q2")
-    return (str(resp))
-
-def q3():
-    q2r = request.values.get('Body', None)
-    resp = MessagingResponse()
-    resp.message("q3")
-    return (str(resp))
 
 @app.route("/")
 def site():
