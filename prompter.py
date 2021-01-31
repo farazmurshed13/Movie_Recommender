@@ -97,7 +97,9 @@ def handle_sms():
         sc.record_response("4", inc, party_code)
         
         # check if everyone done
-        if sc.done(party_code):
+        isDone = sc.done(party_code)
+        if isDone:
+            msg = "isDone"
             info = sc.get_tot_resp(party_code)
             # use averages of question responses as input for knn algorithm
             t = info[0] / info[4]
@@ -105,7 +107,9 @@ def handle_sms():
             r = info[2] / info[4]
             f = info[3] / info[4]
             movies_list = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            msg = sc.movie_msg(movies_list)
+            msg = "isDone2"
+            #msg = sc.movie_msg(movies_list)
+            msg = movies_list[0]
         else:
             msg = "done - waiting for other users!"
 

@@ -69,8 +69,10 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
             if x in recMovieList:
                 continue
             return x['original_title']
+
         index +=1
     return None
+
 
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
@@ -84,9 +86,6 @@ def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, m
             movieList.append(recMovie)
         else:
             it+=1
-    if it == 1000:
-        print("you're group is unable to be satisfied, you might have to pick a different activity tonight")
-    print(movieList)
     return movieList
 
 insert("Biography", 1, 4, 5, 2)
@@ -110,5 +109,5 @@ insert("Musical", 3, 1, 3, 3)
 insert("Film-Noir", 4, 4, 4, 2)
 insert("Romance", 2, 1, 4, 3)
 #generateMovList(1,4,5,3,"1","1970","2000")
-generateMovList(4,5,4,1,"6","1990","2010")
+#generateMovList(5,4,2,4,"1","1970","2000")
 
