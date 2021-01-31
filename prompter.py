@@ -115,7 +115,7 @@ def handle_sms():
 
             #msg = str(t) + str(b) + str(r) + str(f) + info[5] + info[6] + info[7]
             #msg = sc.movie_msg(ml)
-            msg = movie2
+            msg = movie1 + movie2 + movie3 + movie4 + movie5
         else:
             msg = "done - waiting for other users!"
 
