@@ -121,8 +121,8 @@ def handle_sms():
             msg += (movie4 + "\n")
 
             movie5 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            msg += (movie5 + "\n")
-            mc.remove_code(party_code)
+
+            sc.remove_code(party_code)
         else:
             msg = "done - waiting for other users!"
 
