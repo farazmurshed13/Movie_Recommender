@@ -131,6 +131,7 @@ def handle_sms():
                     to=number
                 )
                 print(mess.sid)
+            return
 
         else:
             msg = "done - waiting for other users!"
