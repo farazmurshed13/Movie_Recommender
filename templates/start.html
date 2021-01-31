@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="grid">
+    <div class="row mt-5 mb-5">
+        <h1>First, some details...</h1>
+    </div>
+    <div class="row">
+        <form action='data' method="POST">
+            <h5>Any preferences for release date range?</h5>
+            <div class='form-group'>
+                <label for="mindate">Minimum</label>
+                <input type="number" class="form-control" id="mindate" name="mindate" aria-describedby="emailHelp"/></p>
+                <label for="maxdate">Maximum</label>
+                <input type="number" class="form-control" id="maxdate" name="maxdate"/></p>
+            </div>
+            <h5>Any preferences for minimum IMDb rating? (Between 0-10)</h5>
+            <div class='form-group'>
+                <label for="minrating">Minimum</label>
+                <input type="number" class="form-control" id="minrating" name="minrating" min="0" max="10"/></p>
+            </div>
+    </div>
+    <div class="row mt-3">
+        <input type="submit" value="Get Your Code!" class="btn btn-success">
+    </div>
+    </form>   
+</div>
+
+
+{% endblock %}
