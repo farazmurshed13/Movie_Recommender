@@ -1,5 +1,6 @@
 from flask import Flask, request, session, render_template
-from twilio.twiml.messaging_response import Message, MessagingResponse
+from twilio.twiml.messaging_response import MessagingResponse
+from Backend import store_conversation as sc
 
 SECRET_KEY = "a secret key"
 app = Flask(__name__)
@@ -47,17 +48,19 @@ def about():
 @app.route("/sms", methods=['GET', 'POST'])
 def handle_sms():
     # store incoming message
-    # from_number = request.values.get('From')
     incoming = request.values.get('Body', None)
-
     # count messages in session
     counter = session.get('counter', 0)
 
     # determine which question to ask
     # store party code and ask q1
     if counter == 0:
-        party_code = incoming
-        msg = "question 1"
+        party_code = int(incoming)
+        if sc.verify_party(party_code):
+            msg = "question 1"
+        else:
+            msg = "This party code does not exist."
+            counter = 0
     # store r1 and ask q2
     elif counter == 1:
         msg = "question 2"
