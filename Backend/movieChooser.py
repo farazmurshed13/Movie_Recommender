@@ -81,9 +81,6 @@ def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, m
             movieList.append(recMovie)
         else:
             it+=1
-    if it == 1000:
-        print("you're group is unable to be satisfied, you might have to pick a different activity tonight")
-    print(movieList)
     return movieList
 
 insert("Biography", 1, 4, 5, 2)
