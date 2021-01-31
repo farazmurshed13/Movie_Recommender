@@ -37,6 +37,3 @@ def verify_party(pc):
     else:
         print("F")
         return False
-
-verify_party(829)
-verify_party(830)
