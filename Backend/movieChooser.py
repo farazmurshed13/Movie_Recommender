@@ -5,9 +5,8 @@ from pprint import pprint
 from heapq import nsmallest 
 from random import randrange
 genreGraph = {}
-diffDict = {}
 probDict = {}
-
+movieList = []
 #insert genre into the genre graph
 def insert(genre, thrill, brainpower, realism, futurism):
     genreGraph[genre] = [thrill,brainpower,realism,futurism]
@@ -25,7 +24,7 @@ def k_nearest(thrill, brainpower, realism, futurism):
     return tempDict
 
 # calculate the prob of each genre
-def setProbOfEachGenre():
+def setProbOfEachGenre(diffDict):
     res = nsmallest(5, diffDict, key = diffDict.get)
     topFiveSum = 0
     topFiveInverseSum = 0
@@ -67,10 +66,11 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
                 continue
             return x['original_title']
 
-# generate a list of movies to watch
-def generateMovList(minRating, minYear, maxYear):
+# generate a list of movies to watch by calling k_nearest and set the probability of each genre
+def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
+    diffDict = k_nearest(thrill, brainpower, realism, futurism)
+    setProbOfEachGenre(diffDict)
     it = 0
-    movieList = []
     while it < 1000 and len(movieList) < 5:
         recMovie = pickMovie(movieList,minRating,minYear,maxYear)
         if recMovie not in movieList and recMovie is not None:
@@ -81,8 +81,6 @@ def generateMovList(minRating, minYear, maxYear):
         print("you're group is unable to be satisfied, you might have to pick a different activity tonight")
     print(movieList)
     return movieList
-
-    
 
 insert("Biography", 1, 4, 5, 2)
 insert("Crime", 5, 4, 4, 3)
@@ -104,8 +102,6 @@ insert("Animation", 3, 3, 1, 4)
 insert("Musical", 3, 1, 3, 3)
 insert("Film-Noir", 4, 4, 4, 2)
 insert("Romance", 2, 1, 4, 3)
-diffDict = k_nearest(1,4,5,3)
-diffDict = k_nearest(5,4,2,4)
-setProbOfEachGenre()
-#generateMovList("1","1970","2000")
+#generateMovList(1,4,5,3,"1","1970","2000")
+#generateMovList(5,4,2,4,"1","1970","2000")
 
