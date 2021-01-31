@@ -60,14 +60,15 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
         return None   
     numDoc = mydoc.count()
     #randomize index because mongodb has ordering
-    randIndex = randrange(1,numDoc)
+    randIndex = randrange(0,numDoc)
     index = 0
     for x in mydoc:
-        index +=1
         if index == randIndex:
             if x in recMovieList:
                 continue
             return x['original_title']
+        index +=1
+    return None
 
 # generate a list of movies to watch by calling k_nearest and set the probability of each genre
 def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, maxYear):
@@ -107,5 +108,5 @@ insert("Musical", 3, 1, 3, 3)
 insert("Film-Noir", 4, 4, 4, 2)
 insert("Romance", 2, 1, 4, 3)
 #generateMovList(1,4,5,3,"1","1970","2000")
-#generateMovList(5,4,2,4,"1","1970","2000")
+generateMovList(4,5,4,1,"6","1990","2010")
 
