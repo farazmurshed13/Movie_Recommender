@@ -5,7 +5,7 @@ from random import randint
 # set up mongo db client
 client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
 db = client['mydatabase']
-codes = db['partyCodes']
+codes = db['movies']
 
 
 # generate party code and store for first user
