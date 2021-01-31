@@ -87,8 +87,7 @@ def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, m
         else:
             it+=1
 
-    return ["string","of","items"]
-    #return movieList
+    return movieList
 
 insert("Biography", 1, 4, 5, 2)
 insert("Crime", 5, 4, 4, 3)
