@@ -8,13 +8,37 @@ app = Flask(__name__)
 @app.route("/sms", methods=['GET', 'POST'])
 def handle_sms():
     # Get the message the user sent to Twilio number
-    body = request.values.get('Body', None)
+    code = request.values.get('Body', None)
 
-    # TwiML response
+
+    # TwiML comms
+    ask()
+    q2()
+    q3()
+
+    q3r = request.values.get('Body', None)
     resp = MessagingResponse()
-    resp.message(body)
+    resp.message("done")
+
     return(str(resp))
 
+
+def ask():
+    resp = MessagingResponse()
+    resp.message("q1")
+    return (str(resp))
+
+def q2():
+    q1r = request.values.get('Body', None)
+    resp = MessagingResponse()
+    resp.message("q2")
+    return (str(resp))
+
+def q3():
+    q2r = request.values.get('Body', None)
+    resp = MessagingResponse()
+    resp.message("q3")
+    return (str(resp))
 
 @app.route("/")
 def site():
