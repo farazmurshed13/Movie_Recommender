@@ -73,6 +73,7 @@ def handle_sms():
     # store r3 and ask q4
     elif counter == 3:
         msg = "question 4"
+        counter += 1
     # store r4
     else:
         msg = "done!"
