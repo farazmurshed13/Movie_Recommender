@@ -39,7 +39,7 @@ def host_submit(dic, c):
         "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
-    codes.update_one({"code": c}, {"$set": {"num_users": dic['numwatchers'], "min_date": dic['mindate'], "max_date": dic['maxdate'], "min_rating": dic['minrating'] } } )
+    codes.update_one({"code": c}, {"$set": {"num_users": int(dic['numwatchers']), "min_date": dic['mindate'], "max_date": dic['maxdate'], "min_rating": dic['minrating'] } } )
 
 
 # verify party code
