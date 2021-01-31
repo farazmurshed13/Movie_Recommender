@@ -52,17 +52,27 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
     db = client['mydatabase']
     movies = db['movies']
     mydoc = movies.find({ "$and": [{"genre":  {'$regex': '.*' + genreList[0] + '*.'}},{"genre":  {'$regex': '.*' + genreList[1] + '*.'}},
-            {"genre":  {'$regex': '.*' + genreList[2] + '*.'}}]},{"_id":False})
+            {"genre":  {'$regex': '.*' + genreList[2] + '*.'}},{"language": "English"},{"avg_vote": {"$gt": int(minRating)}}, 
+            {"year": {"$gt": int(minYear), "$lt":int(maxYear)}}]},{"_id":False})
+    if mydoc.count() == 0:
+        return None   
+    numDoc = mydoc.count()
+    #randomize index because mongodb has ordering
+    randIndex = randrange(1,numDoc)
+    index = 0
     for x in mydoc:
-        if x in recMovieList:
-            continue
-        return x['title']
-    
-def generateMovList():
+        index +=1
+        if index == randIndex:
+            if x in recMovieList:
+                continue
+            return x['original_title']
+
+# generate a list of movies to watch
+def generateMovList(minRating, minYear, maxYear):
     it = 0
     movieList = []
     while it < 1000 and len(movieList) < 5:
-        recMovie = pickMovie(movieList,1,1,1)
+        recMovie = pickMovie(movieList,minRating,minYear,maxYear)
         if recMovie not in movieList and recMovie is not None:
             movieList.append(recMovie)
         else:
@@ -70,6 +80,7 @@ def generateMovList():
     if it == 1000:
         print("you're group is unable to be satisfied, you might have to pick a different activity tonight")
     print(movieList)
+    return movieList
 
     
 
@@ -93,7 +104,8 @@ insert("Animation", 3, 3, 1, 4)
 insert("Musical", 3, 1, 3, 3)
 insert("Film-Noir", 4, 4, 4, 2)
 insert("Romance", 2, 1, 4, 3)
-diffDict = kClosest(1,4,5,3)
+#diffDict = kClosest(1,4,5,3)
+diffDict = kClosest(5,4,2,4)
 setProbOfEachGenre()
-generateMovList()
+generateMovList("1","1970","2000")
 
