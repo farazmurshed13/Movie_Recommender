@@ -90,12 +90,15 @@ def handle_sms():
         sc.record_response("3", inc, party_code)
         msg = "What's the current vibe - more Throwback Thursday \U0001F4FC or Futuristic Friday \U0001F916?\n1 - TBT \U0001F519\n|\n|\n5 - FF \U0001F51C"
         counter += 1
-    # store r4
+    # store r4; handle movie selection if last user to finish
     else:
         party_code = sc.get_code(from_number)
         sc.record_response("4", inc, party_code)
+        if sc.done(party_code):
+            info = sc.get_tot_resp(party_code)
+        else:
+            msg = "done - waiting for other users!"
 
-        msg = "done!"
         counter = 0
 
     # update counter
