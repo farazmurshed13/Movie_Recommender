@@ -108,7 +108,8 @@ def handle_sms():
             f = info[3] / info[4]
             movies_list = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
             #msg = str(t) + str(b) + str(r) + str(f) + info[5] + info[6] + info[7]
-            msg = sc.movie_msg(movies_list)
+            ml = ['The Departed', 'Hola', 'Last']
+            msg = sc.movie_msg(ml)
             #msg = movies_list[0]
         else:
             msg = "done - waiting for other users!"
