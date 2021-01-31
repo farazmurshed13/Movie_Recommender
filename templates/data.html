@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class='grid'>
-    <div class="row mt-5 mb-5">
-        <h1>Looking for Movie Recs?</h1>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <a class="btn btn-dark" href='start'>Let's Get Started!</a>
-    </div>
-</div>
+
+{% for key,value in form.items() %}
+<h2> {{key}}</h2>
+<p> {{value}}</p>
+{% endfor %}
 
 {% endblock %}
