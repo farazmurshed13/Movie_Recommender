@@ -85,8 +85,7 @@ def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, m
         if recMovie is None:
             it +=1
             continue
-        else:
-            it+=1
+        return recMovie
 
     return recMovie
 
