@@ -39,6 +39,8 @@ def data():
             form_dict['minrating'] = form_data['minrating']
 
         code = sc.generate_code()
+        sc.host_submit(form_dict)
+
         return render_template('data.html', code=code)
 
 @app.route("/about")
@@ -92,6 +94,7 @@ def handle_sms():
     else:
         party_code = sc.get_code(from_number)
         sc.record_response("4", inc, party_code)
+
         msg = "done!"
         counter = 0
 

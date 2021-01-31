@@ -20,11 +20,24 @@ def generate_code():
                 "3" : 0,
                 "4": 0,
                 "users_list" : [],
-                "users_done": 0
+                "num_users" : 0,
+                "users_done": 0,
+                "min_date" : "",
+                "max_date" : "",
+                "min_rating" : ""
             }
             codes.insert_one(new_code)
             break
     return c
+
+# store initial host webpage info (num users, date range, rating)
+def host_submit(dic, c):
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(
+        "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    db = client['mydatabase']
+    codes = db['partyCodes']
+    codes.update_one({"code": c}, {"$set": {"num_users": dic['numwatchers'], "min_date": dic['mindate'], "max_date": dic['maxdate'], "min_rating": dic['minrating'] } } )
+
 
 # verify party code
 def verify_party(pc):
@@ -62,7 +75,3 @@ def get_code(member):
     found = codes.find({"users_list" : member }, {"code" : 1, "_id" : 0})
     for i in found:
         return i["code"]
-
-
-add_member("+1929", 5749)
-print(get_code("+1921"))
