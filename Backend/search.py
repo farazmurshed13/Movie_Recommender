@@ -8,8 +8,11 @@ db = client['mydatabase']
 
 movies = db['movies']
 
-query = {'original_title': 'Gemini Man', 'country': {"$regex": ".*USA.*"}}
+query = {'original_title': 'Ip Man', 'country': {"$regex": ".*USA.*"}}
 
-res = movies.find(query)
+query2 = { '$or' : [ {'title': {'$regex': '.*The Shawshank*.'}}, {'original_title': {'$regex': '.*The Shawshank*.'}}] }
+
+
+res = movies.find(query2)
 
 pprint(res[0])
