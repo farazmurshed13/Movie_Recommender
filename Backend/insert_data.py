@@ -1,8 +1,11 @@
 import pymongo
 import urllib
 import pandas as pd
+from decouple import config
 
-client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
+MDB_PASS = config('PASS')
+
+client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
 
 db = client['mydatabase']
 

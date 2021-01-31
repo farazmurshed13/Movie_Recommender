@@ -5,6 +5,10 @@ import urllib
 from pprint import pprint
 from heapq import nsmallest 
 from random import randrange
+from decouple import config
+
+MDB_PASS = config('PASS')
+
 genreGraph = {}
 probDict = {}
 
@@ -48,8 +52,7 @@ def setProbOfEachGenre(diffDict):
 def pickMovie(recMovieList, minRating, minYear, maxYear):
     genreList = random.choices(list(probDict.keys()), weights=probDict.values(), k=3)
     #print(genreList)
-    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + \
-                "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
     db = client['mydatabase']
     movies = db['movies']
     mydoc = movies.find({ "$and": [{"genre":  {'$regex': '.*' + genreList[0] + '*.'}},{"genre":  {'$regex': '.*' + genreList[1] + '*.'}},
