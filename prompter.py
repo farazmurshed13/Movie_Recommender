@@ -106,10 +106,16 @@ def handle_sms():
             b = info[1] / info[4]
             r = info[2] / info[4]
             f = info[3] / info[4]
-            movies_list = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
+            movie1 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
+            movie2 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
+            movie3 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
+            movie4 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
+            movie5 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
+            movies_list = [movie1, movie2, movie3, movie4, movie5]
+
             #msg = str(t) + str(b) + str(r) + str(f) + info[5] + info[6] + info[7]
             #msg = sc.movie_msg(ml)
-            msg = movies_list
+            msg = movies_list[0]
         else:
             msg = "done - waiting for other users!"
 
