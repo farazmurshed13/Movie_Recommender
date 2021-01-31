@@ -60,8 +60,6 @@ def handle_sms():
 
     # count messages in session
     counter = session.get('counter', 0)
-    session['counter'] = 0
-    return
 
     # determine which question to ask
 
