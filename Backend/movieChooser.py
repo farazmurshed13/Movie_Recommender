@@ -7,7 +7,8 @@ from random import randrange
 genreGraph = {}
 probDict = {}
 movieList = []
-#insert genre into the genre graph
+
+# insert genre into the genre graph
 def insert(genre, thrill, brainpower, realism, futurism):
     genreGraph[genre] = [thrill,brainpower,realism,futurism]
 
@@ -43,7 +44,7 @@ def setProbOfEachGenre(diffDict):
     #pprint(probDict)
 
 
-#pick a movie
+# pick a movie
 def pickMovie(recMovieList, minRating, minYear, maxYear):
     genreList = random.choices(list(probDict.keys()), weights=probDict.values(), k=3)
     #print(genreList)
