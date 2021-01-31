@@ -17,4 +17,3 @@ movie_dict = csv_to_json("IMDb_movies.csv")
 movies.insert_many(movie_dict)
 
 
-
