@@ -94,8 +94,8 @@ def done(c):
     nu = codes.find({"code": c}, {"num_users": 1, "_id": 0})
     for j in nu:
         n_nu = j["num_users"]
-
-    return n_ud == n_nu
+    n_nu_asInt = int(n_nu)
+    return n_ud == n_nu_asInt
 
 # get array of total responses
 def get_tot_resp(c):
@@ -131,8 +131,8 @@ def get_tot_resp(c):
     nu = codes.find({"code": c}, {"num_users": 1, "_id": 0})
     for j in nu:
         n_nu = j["num_users"]
-
-    return [[q1, q2, q3, q4, n_nu, min_rat, min_dat, max_dat]]
+    n_nu_asInt = int(n_nu)
+    return [[q1, q2, q3, q4, n_nu_asInt, min_rat, min_dat, max_dat]]
 
 # store list of movies as strings
 def movie_msg(mlist):
