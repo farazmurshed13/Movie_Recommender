@@ -11,6 +11,7 @@ def generate_code():
     db = client['mydatabase']
     codes = db['partyCodes']
     # generate random code in range [0,9999] until unused code is found
+    c = 0
     while(True):
         c = randint(0,10000)
         if codes.count_documents({"code" : c}, limit=1) == 0:
@@ -23,7 +24,9 @@ def generate_code():
                 "q4": 0
             }
             codes.insert_one(new_code)
+
             break
+    return c
 
 #verify party code
 def verify_party(pc):
