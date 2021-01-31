@@ -138,6 +138,6 @@ def get_tot_resp(c):
 def movie_msg(mlist):
     msg = "Here are your recommended movies!\n\n"
     for i in range(len(mlist)):
-        pass
         #msg += (str(i+1) + ". " + mlist[i] + "\n")
+        msg += mlist[i]
     return msg
