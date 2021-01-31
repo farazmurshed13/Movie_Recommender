@@ -141,3 +141,11 @@ def movie_msg(mlist):
         #msg += (str(i+1) + ". " + mlist[i] + "\n")
         msg += (mlist[i] + "\n")
     return msg
+
+# remove code from database
+def remove_code(c):
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(
+        "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    db = client['mydatabase']
+    codes = db['partyCodes']
+    codes.deleteOne({"code": c})
