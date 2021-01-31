@@ -32,9 +32,12 @@ def verify_party(pc):
     db = client['mydatabase']
     codes = db['partyCodes']
 
+
     if codes.count_documents({"code": pc}, limit=1) == 1:
         print("T")
+        client.close()
         return True
     else:
+        client.close()
         return False
-    client.close()
+
