@@ -38,10 +38,10 @@ def handle_sms():
     # store party code and ask q1
     if counter == 0:
         party_code = incoming
-        if sc.verify_party(party_code):
-            msg = "question 1"
-        else:
-            msg = "This party code does not exist."
+        #if sc.verify_party(party_code):
+        #    msg = "question 1"
+        #else:
+        msg = "This party code does not exist."
 
     # store r1 and ask q2
     elif counter == 1:
