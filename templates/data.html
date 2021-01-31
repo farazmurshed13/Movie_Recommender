@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% for key,value in form.items() %}
-<h2> {{key}}</h2>
-<p> {{value}}</p>
-{% endfor %}
+<div class='grid'>
+    <div class="row mt-5 mb-5 d-flex justify-content-center">
+        <h1>Great! You're all set!</h1>
+    </div>
+    <div class="row">
+        <div class="card bg-success" style="width: 18rem; margin: auto;">
+            <div class="card-body">
+                <h5 class="card-title">Here is your code:</h5>
+                <h1 class="card-text" style="font-size: 70px;">{{code}}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center" style="margin-top: 50px;">
+        <h3>Have everyone, including you, text this code to</h3> 
+    </div>
+    <div class="row d-flex justify-content-center">
+        <h2>X-XXX-XXXX</h2> 
+    </div>
+    <div class="row d-flex justify-content-center">
+        <h3>to start the movie recommending process.</h3> 
+    </div>
+</div>
 
 {% endblock %}
