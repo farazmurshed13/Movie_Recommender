@@ -20,8 +20,28 @@ def data():
         return f"The URL /data is accessed directly. Try going to '/start' to submit form"
     if request.method == 'POST':
         form_data = request.form
-        code = 1456
+        form_dict = {}
+        if(form_data['mindate'] == ''):
+            form_dict['mindate'] = '0'
+        else:
+            form_dict['mindate'] = form_data['mindate']
+
+        if(form_data['maxdate'] == ''):
+            form_dict['maxdate'] = '0'
+        else:
+            form_dict['maxdate'] = form_data['maxdate']
+
+        if(form_data['minrating'] == ''):
+            form_dict['minrating'] = '0'
+        else:
+            form_dict['minrating'] = form_data['minrating']
+
+        code = 1451
         return render_template('data.html', code=code)
+
+@app.route("/about")
+def about():
+    return render_template('about.html')
 
 # handle incoming sms
 @app.route("/sms", methods=['GET', 'POST'])
