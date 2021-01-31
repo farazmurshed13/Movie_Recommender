@@ -27,12 +27,13 @@ def generate_code():
 
 #verify party code
 def verify_party(pc):
-    client = pymongo.MongoClient(
-        "mongodb+srv://ryan:<7926COAco87>@cluster0.zmj8z.mongodb.net/<mydatabase>?retryWrites=true&w=majority")
-    db = client.test
-    codes = db["partyCodes"]
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(
+        "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    db = client['mydatabase']
+    codes = db['partyCodes']
 
     if codes.count_documents({"code": pc}, limit=1) == 1:
+        print("T")
         return True
     else:
         return False
