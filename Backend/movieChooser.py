@@ -56,9 +56,11 @@ def pickMovie(recMovieList, minRating, minYear, maxYear):
     mydoc = movies.find({ "$and": [{"genre":  {'$regex': '.*' + genreList[0] + '*.'}},{"genre":  {'$regex': '.*' + genreList[1] + '*.'}},
             {"genre":  {'$regex': '.*' + genreList[2] + '*.'}},{"language": "English"},{"avg_vote": {"$gt": int(minRating)}}, 
             {"year": {"$gt": int(minYear), "$lt":int(maxYear)}}]},{"_id":False})
-    if mydoc.count() == 0:
-        return None   
-    numDoc = mydoc.count()
+    numDoc = movies.count_documents({ "$and": [{"genre":  {'$regex': '.*' + genreList[0] + '*.'}},{"genre":  {'$regex': '.*' + genreList[1] + '*.'}},
+            {"genre":  {'$regex': '.*' + genreList[2] + '*.'}},{"language": "English"},{"avg_vote": {"$gt": int(minRating)}}, 
+            {"year": {"$gt": int(minYear), "$lt":int(maxYear)}}]})
+    if numDoc == 0:
+        return None  
     #randomize index because mongodb has ordering
     randIndex = randrange(0,numDoc)
     index = 0
