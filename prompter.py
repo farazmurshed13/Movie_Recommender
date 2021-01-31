@@ -112,20 +112,16 @@ def handle_sms():
             msg += (movie1 + "\n")
 
             movie2 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie2 not in msg:
-                msg += (movie2 + "\n")
+            msg += (movie2 + "\n")
 
             movie3 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie3 not in msg:
-                msg += (movie3 + "\n")
+            msg += (movie3 + "\n")
 
             movie4 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie4 not in msg:
-                msg += (movie4 + "\n")
+            msg += (movie4 + "\n")
 
             movie5 = mc.generateMovList(t, b, r, f, info[5], info[6], info[7])
-            if movie5 not in msg:
-                msg += (movie5 + "\n")
+            msg += (movie5 + "\n")
             mc.remove_code(party_code)
         else:
             msg = "done - waiting for other users!"
