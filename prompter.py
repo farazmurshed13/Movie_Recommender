@@ -22,6 +22,7 @@ def data():
     if request.method == 'POST':
         form_data = request.form
         form_dict = {}
+        form_dict['numwatchers'] = form_data['numwatchers']
         if(form_data['mindate'] == ''):
             form_dict['mindate'] = '0'
         else:
@@ -66,7 +67,7 @@ def handle_sms():
     # store r1 and ask q2
     elif counter == 1:
         sc.record_response("1", inc, 5749)
-        msg = "On a scale of 1 to 5, is it currently big brain time? \U0001F9E0\n1 = Last 2 brain cells\n5 = 4D Chess"
+        msg = "On a scale of 1 to 5, is it currently big brain time? \U0001F9E0\n1 - Last 2 brain cells\n|\n|\n5 - 4D Chess"
         counter += 1
     # store r2 and ask q3
     elif counter == 2:
@@ -76,7 +77,7 @@ def handle_sms():
     # store r3 and ask q4
     elif counter == 3:
         sc.record_response("3", inc, 5749)
-        msg = "What's the current vibe - more Throwback Thursday \U0001F4FC or Futuristic Friday \U0001F916?\n1 = TBT \U0001F519\n5 = FF \U0001F51C"
+        msg = "What's the current vibe - more Throwback Thursday \U0001F4FC or Futuristic Friday \U0001F916?\n1 - TBT \U0001F519\n|\n|\n5 - FF \U0001F51C"
         counter += 1
     # store r4
     else:
