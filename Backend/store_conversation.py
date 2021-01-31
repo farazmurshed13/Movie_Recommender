@@ -1,10 +1,13 @@
 import pymongo
 import urllib
 from random import randint
+from decouple import config
+
+MDB_PASS = config('PASS')
 
 # generate party code and store for first user
 def generate_code():
-    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
     # generate random code in range [0,9999] until unused code is found
@@ -28,7 +31,7 @@ def generate_code():
 
 # verify party code
 def verify_party(pc):
-    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus("7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
 
@@ -39,8 +42,7 @@ def verify_party(pc):
 
 # update question responses in database
 def record_response(q, resp, c):
-    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(
-        "7926COAco87") + "@cluster0.zmj8z.mongodb.net/mydatabase?retryWrites=true&w=majority")
+    client = pymongo.MongoClient("mongodb+srv://ryan:" + urllib.parse.quote_plus(MDB_PASS) + "@cluster0.zmj8z.mongodb.net/movies?retryWrites=true&w=majority")
     db = client['mydatabase']
     codes = db['partyCodes']
 
