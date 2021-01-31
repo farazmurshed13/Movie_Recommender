@@ -34,7 +34,6 @@ def verify_party(pc):
 
 
     if codes.count_documents({"code": pc}, limit=1) == 1:
-        print("T")
         client.close()
         return True
     else:
