@@ -83,11 +83,12 @@ def generateMovList(thrill, brainpower, realism, futurism, minRating, minYear, m
 
 
     setProbOfEachGenre(diffDict)
-    return probDict
 
     it = 0
     while it < 1000 and len(movieList) < 5:
         recMovie = pickMovie(movieList,minRating,minYear,maxYear)
+        return recMovie
+        # only add if not null and unadded so far
         if recMovie not in movieList and recMovie is not None:
             movieList.append(recMovie)
         else:
