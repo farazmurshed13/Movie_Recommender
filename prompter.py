@@ -95,7 +95,7 @@ def handle_sms():
     else:
         party_code = sc.get_code(from_number)
         sc.record_response("4", inc, party_code)
-
+        
         # check if everyone done
         if sc.done(party_code):
             info = sc.get_tot_resp(party_code)
