@@ -58,7 +58,7 @@ def handle_sms():
     if counter == 0:
         party_code = int(incoming)
         if sc.verify_party(party_code):
-            msg = "question 1"
+            msg = "What would you rather eat for your next meal?\n1. Cereal \U0001F963\n2. Omelette\n3. Spaghetti\n4. Sushi\n5. Ghost pepper wings"
             counter += 1
         else:
             msg = "This party code does not exist."
