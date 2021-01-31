@@ -13,8 +13,13 @@ def handle_sms():
     # TwiML response
     resp = MessagingResponse()
     resp.message(body)
+    print(str(resp))
 
-    return str(resp)
+    body = request.values.get('Body', None)
+    resp.message(body)
+    print(str(resp))
+    return
+
 
 @app.route("/")
 def site():
